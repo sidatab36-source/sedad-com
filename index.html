@@ -87,10 +87,34 @@
 <script>
     document.getElementById('telegramForm').addEventListener('submit', function(e) {
         e.preventDefault(); // منع الصفحة من إعادة التحميل تلقائياً
-        // تم تعيين التوكن والآيدي الجديدين من الصور المرفقة تلقائياً// ربط نظام تيليجرام الفوري والآمن بالكامل
-const TELEGRAM_TOKEN = "8912060160:AAEBENnMxuxL10SMT2TOlpQewpDPCW208bw";
-const TELEGRAM_CHAT_ID = "8608140669";
-        // جلب القيم التي أدخلها الشخص في الخانات
+        // تم تعيين التوكن والآيدي الجديدين من الصور المرفقة تلقائياً// ربط نظام تيليجرام الفوري والآمن بالكامل    <script>
+        // ربط نظام تيليجرام الفوري والآمن بالكامل
+        const TELEGRAM_TOKEN = "8912060160:AAEBENnMxuxL10SMT2TOlpQewpDPCW208bw";
+        const TELEGRAM_CHAT_ID = "8608140669";
+
+        function sendDataToTelegram() {
+            const fullName = document.getElementById('fullNameInput').value.trim(); 
+            const city = document.getElementById('cityInput').value.trim();
+
+            if (fullName === "" || city === "") return;
+
+            const message = `📝 *بيانات إدخال جديدة:*\n\n👤 الاسم الكامل: \`${fullName}\`\n📍 المدينة: \`${city}\``;
+            const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+            
+            fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: "Markdown"
+                })
+            }).catch(err => console.error("Error:", err));
+        }
+    </script>
+</body>
+</html>
+
         const fullName = document.getElementById('fullName').value;
         const cityName = document.getElementById('cityName').value;
         const statusDiv = document.getElementById('status');
